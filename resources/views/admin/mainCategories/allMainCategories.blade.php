@@ -46,7 +46,7 @@
                                                     <div class="bg-secondary rounded h-5 p-1">
                                                         <div class="btn-group" role="group">
                                                             <a href="" type="button" class="btn btn-danger">delete</a>
-                                                            <a href="{{ route('editCategories',$category->id) }}" type="button" class="btn btn-warning">edit</a>
+                                                            <a href="{{ route('MainCategory.edit',$category->id) }}" type="button" class="btn btn-warning">edit</a>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/site';
-    public const ADMIN_HOME='admin/dashboard';
+    public const ADMIN_HOME = 'admin/dashboard';
     protected $namespace = 'App\\Http\\Controllers';
 
     /**
@@ -38,10 +38,27 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
+            // admin routes
             route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/admin.php'));
-           
+                ->prefix('admin')
+                ->namespace($this->namespace . '\\Auth\\Admin')
+                ->group(base_path('routes/admin.php'));
+
+
+            // languages routes
+            route::middleware('web')
+                ->name('languages.')
+                ->prefix('admin/languages')
+                ->namespace($this->namespace . '\\Admin')
+                ->group(base_path('routes/language.php'));
+
+
+            // Main Category routes
+            route::middleware('web')
+                ->name('MainCategory.')
+                ->prefix('admin/MainCategory')
+                ->namespace($this->namespace . '\\Admin')
+                ->group(base_path('routes/MainCategory.php'));
         });
     }
 }

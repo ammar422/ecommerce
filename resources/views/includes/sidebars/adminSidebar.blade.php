@@ -28,10 +28,10 @@
                     </span>
                 </a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href={{ route('ShowAllLangs') }} class="dropdown-item">
+                    <a href={{ route('languages.show') }} class="dropdown-item">
                        Show All Langs 
                     </a>
-                    <a href="{{ route('addNewLangs') }}" class="dropdown-item">Add New Lang</a>
+                    <a href="{{ route('languages.add') }}" class="dropdown-item">Add New Lang</a>
                 </div>
             </div>
 
@@ -43,8 +43,21 @@
                     </span>
                 </a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="{{ route('ShowAllCategories') }}" class="dropdown-item">Show All Categories</a>
-                    <a href="{{ route('addNewCategories') }}" class="dropdown-item">Add New Category</a>
+                    <a href="{{ route('MainCategory.show') }}" class="dropdown-item">Show All Categories</a>
+                    <a href="{{ route('MainCategory.add') }}" class="dropdown-item">Add New Category</a>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                        class="fa fa-laptop me-2"></i> All Vendors
+                    <span class="badge badge badge-info badge-pill float-right mr-2">
+                        {{ DefaultMainCategory()->count() }}
+                    </span>
+                </a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="" class="dropdown-item">Show All Vendors</a>
+                    <a href="" class="dropdown-item">Add New Vendor</a>
                 </div>
             </div>
 

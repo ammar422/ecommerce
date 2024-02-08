@@ -34,7 +34,7 @@ class LanguagesController extends Controller
     {
         try {
             Language::create($request->validated());
-            return redirect()->route('addNewLangs')->with(['success' => 'The New Language Add Successfuly']);
+            return redirect()->route('languages.add')->with(['success' => 'The New Language Add Successfuly']);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
@@ -46,10 +46,10 @@ class LanguagesController extends Controller
         try {
             $language = Language::find($lagn_id);
             if (!$language) {
-                return redirect()->route('ShowAllLangs')->with(['error' => 'This Language Is Not Found']);
+                return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
             } else {
                 $language->delete();
-                return redirect()->route('ShowAllLangs')
+                return redirect()->route('languages.show')
                     ->with(['success' => 'The Language deleted succefuly']);
             }
         } catch (\Exception $ex) {
@@ -62,7 +62,7 @@ class LanguagesController extends Controller
         try {
             $language = Language::find($lagn_id);
             if (!$language) {
-                return redirect()->route('ShowAllLangs')->with(['error' => 'This Language Is Not Found']);
+                return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
             } else {
                 $language = Language::select()->find($lagn_id);
                 return view('admin.languages.editLanguage', compact('language'));
@@ -76,10 +76,10 @@ class LanguagesController extends Controller
         try {
             $language = Language::find($id);
             if (!$language) {
-                return redirect()->route('ShowAllLangs')->with(['error' => 'This Language Is Not Found']);
+                return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
             } else
                 $language->update($request->all());
-            return redirect()->route('ShowAllLangs')->with(['success' => 'This Language Is edited successfuly']);
+            return redirect()->route('languages.show')->with(['success' => 'This Language Is edited successfuly']);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

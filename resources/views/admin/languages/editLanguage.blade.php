@@ -10,7 +10,7 @@
                 <div class="bg-secondary rounded h-100 p-4">
                     <h6 class="mb-4">Edit New Languages</h6>
                     @include('includes.alerts.success')
-                    <form method="post" action="{{ route('updateLanguage',$language->id) }}">
+                    <form method="post" action="{{ route('languages.update',$language->id) }}">
                         @csrf
                        
                         <div class="">

@@ -11,7 +11,7 @@
                 <div class="bg-secondary rounded h-100 p-4">
                     <h6 class="mb-4">Add New Languages</h6>
                     @include('includes.alerts.success')
-                    <form method="post" action="{{ route('stroeLanguage') }}">
+                    <form method="post" action="{{ route('languages.store') }}">
                         @csrf
                         <div class="">
                             <label class="form-label">Language Nmae</label>

@@ -84,11 +84,11 @@ class MainCategoryController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->route('addNewCategories')->with(['success' => 'New Category saved successfuly']);
+            return redirect()->route('MainCategory.add')->with(['success' => 'New Category saved successfuly']);
         } catch (\Exception $e) {
             //Exception $e;
             DB::rollBack();
-            return redirect()->route('addNewCategories')->with(['error' => 'CAN\'T saved try agien']);
+            return redirect()->route('MainCategory.add')->with(['error' => 'CAN\'T saved try agien']);
         }
     }
 
@@ -110,7 +110,7 @@ class MainCategoryController extends Controller
             $category = MainCategorie::with('translatedCatrgories')->selection()->find($categoryId);
 
             if (!$category) {
-                return redirect()->route('ShowAllCategories')->with(['error' => 'this Category is not found ']);
+                return redirect()->route('MainCategory.show')->with(['error' => 'this Category is not found ']);
             }
             return view('admin.mainCategories.editCategory', compact('category'));
         } catch (\Exception $ex) {
@@ -128,7 +128,7 @@ class MainCategoryController extends Controller
             $category = MainCategorie::find($id);
 
             if (!$category) {
-                return redirect()->route('ShowAllCategories')->with(['error' => 'this Category is not found ']);
+                return redirect()->route('MainCategory.show')->with(['error' => 'this Category is not found ']);
             }
 
             if ($request->has('photo')) {
@@ -144,7 +144,7 @@ class MainCategoryController extends Controller
                     'active' => $request->active,
 
                 ]);
-            return redirect()->route('ShowAllCategories')->with(['success' => ' Category updated successfuly']);
+            return redirect()->route('MainCategory.show')->with(['success' => ' Category updated successfuly']);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

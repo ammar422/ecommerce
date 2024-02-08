@@ -12,7 +12,7 @@
                     <h6 class="mb-4">Edit Main Category ({{ $category->name }})</h6>
                     @include('includes.alerts.success')
                     @include('includes.alerts.errors')
-                    <form method="post" action="{{ route('updateCategories', $category->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('MainCategory.update', $category->id) }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $category->id }}">
 
@@ -105,7 +105,7 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Edit Main Category ({{ $category->name }}) in translated languages</h6>
                         @foreach ($category->translatedCatrgories as $translatedCategory)
-                            <form method="post" action="{{ route('updateCategories', $translatedCategory->id) }}"
+                            <form method="post" action="{{ route('MainCategory.update', $translatedCategory->id) }}"
                                 enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="{{ $category->id }}">
                                 @csrf

@@ -43,9 +43,9 @@
                                             <div class="col-sm-2 col-xl-2">
                                                 <div class="bg-secondary rounded h-5 p-1">
                                                     <div class="btn-group" role="group">
-                                                        <a href="{{ route('deleteLanguage', $lang->id) }}" type="button"
+                                                        <a href="{{ route('languages.delete', $lang->id) }}" type="button"
                                                             class="btn btn-danger">delete</a>
-                                                        <a href="{{ route('editeLanguage', $lang->id) }}" type="button"
+                                                        <a href="{{ route('languages.edit', $lang->id) }}" type="button"
                                                             class="btn btn-warning">edit</a>
                                                     </div>
                                                 </div>

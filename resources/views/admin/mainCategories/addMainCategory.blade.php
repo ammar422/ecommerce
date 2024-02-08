@@ -11,7 +11,7 @@
                     <h6 class="mb-4">Add New Main Category</h6>
                     @include('includes.alerts.success')
                     @include('includes.alerts.errors')
-                    <form method="post" action="{{ route('storeCategories') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('MainCategory.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div>
                             <label class="form-label"> Main Category Image </label>
