@@ -31,10 +31,24 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
+            // this section is Special for APIS only
+            // defualt API routes file
             Route::middleware('api')
                 ->prefix('api')
-                ->group(base_path('routes/api.php'));
+                ->group(base_path('routes/APIs/api.php'));
+            // Vendors API
+            Route::middleware('api')
+                ->namespace($this->namespace . '\\Admin\\Apis')
+                ->prefix('api/admin/vendors')
+                ->group(base_path('routes/APIs/vendor.php'));
 
+            // end section which Special for APIS only
+
+
+
+
+            // this section is Special for WEB only
+            // defualt WEB routes file
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
@@ -59,6 +73,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('admin/MainCategory')
                 ->namespace($this->namespace . '\\Admin')
                 ->group(base_path('routes/MainCategory.php'));
+
+            // Vendors routes
+            route::middleware('web')
+                ->name('Vendor.')
+                ->prefix('admin/vendor')
+                ->namespace($this->namespace . '\\Admin')
+                ->group(base_path('routes/vendor.php'));
         });
     }
 }

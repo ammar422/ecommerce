@@ -50,6 +50,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'vendors' => [
+            'driver' => 'local',
+            'root' => base_path().'/uploads/admin/imags/vendors',
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
        
         
 

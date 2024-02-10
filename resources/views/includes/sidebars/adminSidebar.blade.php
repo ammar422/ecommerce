@@ -52,12 +52,12 @@
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                         class="fa fa-laptop me-2"></i> All Vendors
                     <span class="badge badge badge-info badge-pill float-right mr-2">
-                        {{ DefaultMainCategory()->count() }}
+                        {{ App\Models\Vendor::Active()->count() }}
                     </span>
                 </a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="" class="dropdown-item">Show All Vendors</a>
-                    <a href="" class="dropdown-item">Add New Vendor</a>
+                    <a href="{{ route('Vendor.show') }}" class="dropdown-item">Show All Vendors</a>
+                    <a href="{{ route('Vendor.add') }}" class="dropdown-item">Add New Vendor</a>
                 </div>
             </div>
 
