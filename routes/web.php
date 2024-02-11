@@ -24,6 +24,6 @@ Auth::routes(['verify'=>true]);
 Route::get('/site', [App\Http\Controllers\HomeController::class, 'index'])->name('site');
 
 
-// route::get ('tst',function(){
+// route::get ('test',function(){
 //    return collect( activeLang())->count()>1?'true':'false';
 // });

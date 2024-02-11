@@ -38,22 +38,11 @@ class VendorController extends Controller
     public function store(VendorRequest $request)
     {
         try {
-           
-            $logoPath = uploadImage('vendors', $request->logo);
-            $data = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'google_map_address' => $request->location,
-                'active' => $request->active,
-                'mainCategory_id' => $request->Category_id,
-                'logo' => $logoPath,
-            ];
-            Vendor::create($data);
+            Vendor::create($request->validated());
             return redirect()->route('Vendor.show')->with(['success' => 'Vendor ' . $request->name . ' is added successfuly']);
         } catch (\Exception $ex) {
-            // return $ex->getMessage();
-            return redirect()->route('Vendor.add')->with(['error' => 'Vendor ' . $request->name . ' CAN\'T saved try agien']);
+            
+            return redirect()->route('Vendor.add')->with(['error' =>  'cant saved try agien <br> ' . $ex->getMessage()]);
         }
     }
 

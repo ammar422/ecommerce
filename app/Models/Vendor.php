@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Attribute;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,12 +15,12 @@ class Vendor extends Model
         'email',
         'phone',
         'active',
-        'mainCategory_id',
+        'category_id',
         'google_map_address',
         'logo'
     ];
     protected $hidden = [
-        'mainCategory_id',
+        'category_id',
     ];
 
 
@@ -43,14 +43,14 @@ class Vendor extends Model
             'email',
             'phone',
             'active',
-            'mainCategory_id',
+            'category_id',
             'logo',
             'google_map_address'
         ]);
     }
     public function scopeActive($query)
     {
-        return $query->where('active','1');
+        return $query->where('active', '1');
     }
 
 
@@ -64,7 +64,7 @@ class Vendor extends Model
     // relations
     public function category(): BelongsTo
     {
-        return $this->belongsTo(MainCategorie::class, 'mainCategory_id', 'id');
+        return $this->belongsTo(MainCategorie::class, 'category_id', 'id');
     }
 
 
@@ -72,6 +72,14 @@ class Vendor extends Model
 
     public function getLogoAttribute($val)
     {
-     return $val ="http://localhost/ecommerce/uploads/admin/" . $val;   
+        return $val = "http://localhost/ecommerce/uploads/admin/" . $val;
+    }
+
+    protected function logo(): Attribute
+    {
+        return new Attribute(
+
+            set: fn ($value) => uploadImage('vendors',$value)
+        );
     }
 }

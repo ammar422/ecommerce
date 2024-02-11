@@ -11,7 +11,7 @@
                 <div class="bg-secondary rounded h-100 p-4">
                     <h6 class="mb-4">Add New Languages</h6>
                     @include('includes.alerts.success')
-                    <form method="post" action="{{ route('languages.store') }}">
+                    <form >
                         @csrf
                         <div class="">
                             <label class="form-label">Language Nmae</label>
@@ -66,11 +66,9 @@
                         <div class="mb-3">
                             <label class="form-label">Active Language ?</label>
                             <div>
-                                <input type="radio" name="active" value=1 
-                                class="@error('active') is-invalid @enderror">
+                                <input type="radio" name="active" value=1 class="@error('active') is-invalid @enderror">
                                 <label for="html">Active Now</label><br>
-                                <input type="radio" name="active" value=0
-                                class="@error ('active') is-invalid @enderror">
+                                <input type="radio" name="active" value=0 class="@error('active') is-invalid @enderror">
                                 <label for="css">Active Later</label><br>
                                 @error('active')
                                     <span class="invalid-feedback" role="alert">
@@ -88,5 +86,20 @@
             </div>
         </div>
     </div>
-    <!-- Form End --
+
+@endsection
+@section('script')
+    <script>
+        $.ajax({
+            type: "post",
+            url: "{{ route('languages.store') }}",
+            data: {
+
+            },
+            success :function(data){         },
+            error   :function (reject){         },  
+        });
+    </script>
+
+
 @endsection
