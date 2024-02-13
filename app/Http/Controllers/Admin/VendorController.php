@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\VendorRequest;
+use App\Http\Traits\ApiGeneral;
 use App\Models\MainCategorie;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class VendorController extends Controller
 {
+    use ApiGeneral;
     /**
      * Display a listing of the resource.
      */
@@ -38,11 +41,15 @@ class VendorController extends Controller
     public function store(VendorRequest $request)
     {
         try {
-            Vendor::create($request->validated());
-            return redirect()->route('Vendor.show')->with(['success' => 'Vendor ' . $request->name . ' is added successfuly']);
+            $vendor =   Vendor::create($request->validated());
+            if ($vendor) {
+
+                return $this->returnSuccessMessage("Vendor Saved Successfuly");
+            } else
+                return $this->returnError("sorru cant save right now please tray agien later");
         } catch (\Exception $ex) {
-            
-            return redirect()->route('Vendor.add')->with(['error' =>  'cant saved try agien <br> ' . $ex->getMessage()]);
+            return $this->returnError($ex->getMessage(),909);
+            // return redirect()->route('Vendor.add')->with(['error' =>  'cant saved try agien <br> ' . $ex->getMessage()]);
         }
     }
 

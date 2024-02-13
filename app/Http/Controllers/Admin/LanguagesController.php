@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LangRequest;
+use App\Http\Traits\ApiGeneral;
 use App\Models\Language;
 
 
 class LanguagesController extends Controller
 {
+    use ApiGeneral;
     public function ShowAllLangs()
     {
         try {
@@ -17,8 +19,6 @@ class LanguagesController extends Controller
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-
-
     }
 
     public function addNewLangs()
@@ -33,8 +33,13 @@ class LanguagesController extends Controller
     public function stroeLanguage(LangRequest $request)
     {
         try {
-            Language::create($request->validated());
-            return redirect()->route('languages.add')->with(['success' => 'The New Language Add Successfuly']);
+            $lang =  Language::create($request->validated());
+            if ($lang) {
+                return $this->returnSuccessMessage("new language saved succeffuly");
+                // return redirect()->route('languages.add')->with(['success' => 'The New Language Add Successfuly']);
+            } else {
+                return $this->returnError("sorry cant save right now please try afien later");
+            }
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
@@ -71,7 +76,7 @@ class LanguagesController extends Controller
             return $ex->getMessage();
         }
     }
-    public function updateLanguage(LangRequest $request,$id)
+    public function updateLanguage(LangRequest $request, $id)
     {
         try {
             $language = Language::find($id);

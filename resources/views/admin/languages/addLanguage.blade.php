@@ -100,7 +100,14 @@
                 processData: false,
                 contentType: false,
                 cache: false,
-                success: function(data) {},
+                success: function(data) {
+                    if(data.status==true){
+                        alert(data.Message)
+                    }
+                    if(data.status==false){
+                        alert(data.Message)
+                    }
+                },
                 error: function(reject) {},
             });
 

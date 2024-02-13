@@ -128,7 +128,7 @@
 
 @section('script')
     <script>
-        $(document).on('click','#btn-sub', function(e) {
+        $(document).on('click', '#btn-sub', function(e) {
             e.preventDefault();
             var formData = new FormData($("#vendorForm")[0]);
 
@@ -140,8 +140,17 @@
                 contentType: false,
                 cache: false,
                 enctype: "multipart/form-data",
-                success: {},
-                error: {},
+                success: function(data) {
+                    if (data.status == true) {
+                        alert(data.Message)
+                    }
+                    if (data.status == false) {
+                        alert(data.Message)
+                    }
+                },
+                error: function(reject) {
+
+                },
             })
         })
     </script>
@@ -364,7 +373,7 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKZAuxH9xTzD2DLY2nKSPKrgRi2_y0ejs&libraries=places&callback=initAutocomplete&language=ar&region=EG
-                             async defer"></script>
+                                         async defer"></script>
 
 
 @stop
