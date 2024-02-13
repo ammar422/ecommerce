@@ -11,7 +11,7 @@
                 <div class="bg-secondary rounded h-100 p-4">
                     <h6 class="mb-4">Add New Languages</h6>
                     @include('includes.alerts.success')
-                    <form id="form-data">
+                    <form id="lang-form">
                         @csrf
                         <div class="">
                             <label class="form-label">Language Nmae</label>
@@ -92,21 +92,18 @@
     <script>
         $(document).on('click', '#form-submit', function(e) {
             e.preventDefault();
+            var formData = new FormData($("#lang-form")[0]);
             $.ajax({
                 type: "post",
                 url: "{{ route('languages.store') }}",
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'name': $("input[name='name']").val(),
-                    'abbr': $("input[name='abbr']").val(),
-                    'local': $("input[name='local']").val(),
-                    'direction': $("input[name='direction']").val(),
-                    'active': $("input[name='active']").val(),
-
-                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
                 success: function(data) {},
                 error: function(reject) {},
             });
+
         });
     </script>
 
