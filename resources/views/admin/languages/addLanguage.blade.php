@@ -82,6 +82,12 @@
 
                         <button type="submit" id="form-submit" class="btn btn-primary">Save</button>
                     </form>
+                    <br>
+                    <div id="success-msg" class="alert alert-success" style="display: none">
+                        <span>
+                            new language saved succeffuly
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,12 +107,10 @@
                 contentType: false,
                 cache: false,
                 success: function(data) {
-                    if(data.status==true){
-                        alert(data.Message)
-                    }
-                    if(data.status==false){
-                        alert(data.Message)
-                    }
+                    $("#success-msg").slideToggle()
+                    $("#success-msg").slideToggle(4000)
+                  
+
                 },
                 error: function(reject) {},
             });

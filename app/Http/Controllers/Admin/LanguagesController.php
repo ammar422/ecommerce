@@ -45,23 +45,7 @@ class LanguagesController extends Controller
         }
     }
 
-    public function deleteLanguage($lagn_id)
-    {
-
-        try {
-            $language = Language::find($lagn_id);
-            if (!$language) {
-                return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
-            } else {
-                $language->delete();
-                return redirect()->route('languages.show')
-                    ->with(['success' => 'The Language deleted succefuly']);
-            }
-        } catch (\Exception $ex) {
-            return $ex->getMessage();
-        }
-    }
-
+    
     public function editeLanguage($lagn_id)
     {
         try {
@@ -85,6 +69,24 @@ class LanguagesController extends Controller
             } else
                 $language->update($request->all());
             return redirect()->route('languages.show')->with(['success' => 'This Language Is edited successfuly']);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    public function deleteLanguage($lagn_id)
+    {
+    
+        try {
+            $language = Language::find($lagn_id);
+            if (!$language) {
+                return $this->returnError('This Language Is Not Found',5001);
+                // return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
+            } else {
+                $language->delete();
+                return $this->returnSuccessMessage('Language deleted successfauly');
+                // return redirect()->route('languages.show')
+                //     ->with(['success' => 'The Language deleted succefuly']);
+            }
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

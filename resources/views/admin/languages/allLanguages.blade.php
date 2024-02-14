@@ -38,13 +38,13 @@
                                         <td>{{ $lang->local }}</td>
                                         <td>{{ $lang->direction }}</td>
                                         <td>{{ $lang->active }}</td>
-                                        
+
                                         <td>
                                             <div class="col-sm-2 col-xl-2">
                                                 <div class="bg-secondary rounded h-5 p-1">
                                                     <div class="btn-group" role="group">
-                                                        <a href="{{ route('languages.delete', $lang->id) }}" type="button"
-                                                            class="btn btn-danger">delete</a>
+                                                        <button id="btn-delete" type="button"
+                                                            class="btn btn-danger">delete</button>
                                                         <a href="{{ route('languages.edit', $lang->id) }}" type="button"
                                                             class="btn btn-warning">edit</a>
                                                     </div>
@@ -56,6 +56,16 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div id="success-msg" class="alert alert-success" style="display: none">
+                            <span>
+                                Language deleted successfauly
+                            </span>
+                        </div>
+                        <div id="error-msg" class="alert alert-danger" style="display: none">
+                            <span>
+                                some thing went wrong try agien
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,4 +73,34 @@
     </div>
     <!-- Table End -->
 
+@endsection
+@section('script')
+    <script>
+       
+        $(document).on("click", "#btn-delete", function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "post",
+                url: "{{ route('languages.delete', $lang->id) }}",
+                data:{
+                    '_token' :" {{ csrf_token() }}",
+                },
+                
+                success: function(data) {
+                    if(data.status ==true){
+                        $("#success-msg").show()
+                        $("#success-msg").hide(4000)
+                    }
+                    if(data.status ==false){
+                        $("#error-msg").show()
+                        $("#error-msg").hide(6000)
+                    }
+                },
+                error: function(reject) {
+                },
+
+
+            });
+        })
+    </script>
 @endsection

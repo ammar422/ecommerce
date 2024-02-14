@@ -11,6 +11,7 @@
                     <h6 class="mb-4">Add New Vendor</h6>
                     @include('includes.alerts.success')
                     @include('includes.alerts.errors')
+                   
                     <form id="vendorForm">
                         @csrf
                         <div>
@@ -117,6 +118,11 @@
 
                         <button id="btn-sub" class="btn btn-primary">Save</button>
                     </form>
+                    <div id="success-msg" class="alert alert-success" style="display:none">
+                        <span>
+                            Vendor Saved Successfuly
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,12 +147,12 @@
                 cache: false,
                 enctype: "multipart/form-data",
                 success: function(data) {
-                    if (data.status == true) {
-                        alert(data.Message)
-                    }
-                    if (data.status == false) {
-                        alert(data.Message)
-                    }
+                    // alert(data.Message)
+                    $("#success-msg").show()
+                    $("#success-msg").hide(4000)
+                    
+
+
                 },
                 error: function(reject) {
 
@@ -373,7 +379,7 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKZAuxH9xTzD2DLY2nKSPKrgRi2_y0ejs&libraries=places&callback=initAutocomplete&language=ar&region=EG
-                                         async defer"></script>
+                                                             async defer"></script>
 
 
 @stop
