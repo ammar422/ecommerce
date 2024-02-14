@@ -65,10 +65,12 @@ class LanguagesController extends Controller
         try {
             $language = Language::find($id);
             if (!$language) {
-                return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
+                return $this->returnError('sorry cant save right now please try afien later');
+                // return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
             } else
-                $language->update($request->all());
-            return redirect()->route('languages.show')->with(['success' => 'This Language Is edited successfuly']);
+            $language->update($request->all());
+            return $this->returnSuccessMessage('This Language Is updated successfuly');
+            // return redirect()->route('languages.show')->with(['success' => 'This Language Is edited successfuly']);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
