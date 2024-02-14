@@ -45,15 +45,15 @@ class LanguagesController extends Controller
         }
     }
 
-    
-    public function editeLanguage($lagn_id)
+
+    public function editeLanguage($lang_id)
     {
         try {
-            $language = Language::find($lagn_id);
+            $language = Language::find($lang_id);
             if (!$language) {
                 return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
             } else {
-                $language = Language::select()->find($lagn_id);
+                $language = Language::select()->find($lang_id);
                 return view('admin.languages.editLanguage', compact('language'));
             }
         } catch (\Exception $ex) {
@@ -75,17 +75,14 @@ class LanguagesController extends Controller
     }
     public function deleteLanguage($lagn_id)
     {
-    
+
         try {
             $language = Language::find($lagn_id);
             if (!$language) {
-                return $this->returnError('This Language Is Not Found',5001);
-                // return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
+                return $this->returnError('This Language Is Not Found', 5001);
             } else {
                 $language->delete();
                 return $this->returnSuccessMessage('Language deleted successfauly');
-                // return redirect()->route('languages.show')
-                //     ->with(['success' => 'The Language deleted succefuly']);
             }
         } catch (\Exception $ex) {
             return $ex->getMessage();

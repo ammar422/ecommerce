@@ -10,7 +10,7 @@
                 <div class="bg-secondary rounded h-100 p-4">
                     <h6 class="mb-4">Edit New Languages</h6>
                     @include('includes.alerts.success')
-                    <form method="post" action="{{ route('languages.update',$language->id) }}">
+                    <form id="updateLang">
                         @csrf
                        
                         <div class="">
@@ -70,11 +70,52 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-warning">Update</button>
+                        <button id="btn-update" type="submit" class="btn btn-warning">Update</button>
                     </form>
+                    <div id="success-msg" class="alert alert-success" style="display: none">
+                        <span>
+                            Language updated successfauly
+                        </span>
+                    </div>
+                    <div id="error-msg" class="alert alert-danger" style="display: none">
+                        <span>
+                            some thing went wrong try agien
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Form End --
+     <!-- Table End -->
 @endsection
+@section("script")
+
+<script>
+    $(document).on('click', '#btn-update', function(e) {
+        e.preventDefault();
+        var formData = new FormData($("#updateLang")[0]);
+        $.ajax({
+            type: "post",
+            url: "{{ route('languages.update',$language->id) }}",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+                $("#success-msg").slideToggle()
+                $("#success-msg").slideToggle(4000)
+              
+
+            },
+            error: function(reject) {},
+        });
+
+    });
+</script> 
+
+
+
+
+
+</script> 
+@stop
