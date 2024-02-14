@@ -84,7 +84,7 @@ class LanguagesController extends Controller
                 return $this->returnError('This Language Is Not Found', 5001);
             } else {
                 $language->delete();
-                return $this->returnSuccessMessage('Language deleted successfauly');
+                return $this->returnSuccessMessage('Language deleted successfauly',3000,$request->id);
             }
         } catch (\Exception $ex) {
             return $ex->getMessage();

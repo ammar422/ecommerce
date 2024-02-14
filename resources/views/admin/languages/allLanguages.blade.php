@@ -31,7 +31,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($langs as $lang)
-                                    <tr>
+                                    <tr class="lang-row{{ $lang->id  }}">
                                         <th scope="row">{{ $lang->id }}</th>
                                         <td>{{ $lang->name }}</td>
                                         <td>{{ $lang->abbr }}</td>
@@ -96,6 +96,8 @@
                         $("#error-msg").show()
                         $("#error-msg").hide(6000)
                     }
+
+                    $(".lang-row"+data.id).remove()
                 },
                 error: function(reject) {},
 

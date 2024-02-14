@@ -32,7 +32,7 @@
                             <tbody>
                                 @isset($vendors)
                                     @foreach ($vendors as $vendor)
-                                        <tr>
+                                        <tr class="vendor-row{{ $vendor->id }}">
                                             <th scope="row">{{ $vendor->id }}</th>
                                             <td>{{ $vendor->name }}</td>
                                             <td>{{ $vendor->category->name }}</td>
@@ -103,6 +103,7 @@
                         $("#erorr-msg").show()
                         $("#erorr-msg").hide(5000)
                     }
+                    $('.vendor-row'+data.id).remove()
                 },
                 erorr: function(reject) {
 

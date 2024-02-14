@@ -86,7 +86,7 @@ class VendorController extends Controller
         $vendor = Vendor::find($request->id);
         if ($vendor) {
             $vendor->delete();
-            return $this->returnSuccessMessage("the vendor is deleted susseccfuly");
+            return $this->returnSuccessMessage("the vendor is deleted susseccfuly",3000,$request->id);
         } else
             return $this->returnError("some thing went wrong plz try agien");
     }

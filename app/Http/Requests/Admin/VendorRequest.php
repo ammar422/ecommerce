@@ -28,7 +28,7 @@ class VendorRequest extends FormRequest
             'phone'=>'max:12|required',
             'google_map_address'=>'max:255|required',
             'active'=>'required',
-            'category_id'=>'required',
+            'category_id'=>'required|exists:main_categories,id',
         ];
     }
 }

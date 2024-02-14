@@ -37,6 +37,8 @@
                                     @foreach ($main_Categories as $Category)
                                         <option value="{{ $Category->id }}">{{ $Category->name }}</option>
                                     @endforeach
+                                  
+
                                 </select>
 
                                 @error('category_id')
