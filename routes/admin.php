@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-define('PAGINATION_COUNT', 10);
+define('PAGINATION_COUNT', 20);
 
 
 route::group(['middleware' => 'auth:admin'], function () {

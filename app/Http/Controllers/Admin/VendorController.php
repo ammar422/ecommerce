@@ -48,7 +48,7 @@ class VendorController extends Controller
             } else
                 return $this->returnError("sorru cant save right now please tray agien later");
         } catch (\Exception $ex) {
-            return $this->returnError($ex->getMessage(),909);
+            return $this->returnError($ex->getMessage(), 909);
             // return redirect()->route('Vendor.add')->with(['error' =>  'cant saved try agien <br> ' . $ex->getMessage()]);
         }
     }
@@ -80,8 +80,13 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $vendor = Vendor::find($id);
+        if ($vendor) {
+            $vendor->delete();
+            return $this->returnSuccessMessage("the vendor is deleted susseccfuly");
+        } else
+            return $this->returnError("some thing went wrong plz try agien");
     }
 }
