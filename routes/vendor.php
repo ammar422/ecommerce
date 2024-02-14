@@ -12,5 +12,5 @@ route::middleware('auth:admin')->group(function () {
     route::post('new_vendor', 'VendorController@store')->name('store');
     route::get('edit_vendor/{id}', 'VendorController@edit')->name('edit');
     route::post('update_vendor/{id}', 'VendorController@update')->name('update');
-    route::post('delete_vendor/{lang_id}', 'VendorController@destroy')->name('delete');
+    route::post('delete_vendor', 'VendorController@destroy')->name('delete');
 });

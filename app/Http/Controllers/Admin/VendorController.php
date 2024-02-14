@@ -80,9 +80,10 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $vendor = Vendor::find($id);
+        
+        $vendor = Vendor::find($request->id);
         if ($vendor) {
             $vendor->delete();
             return $this->returnSuccessMessage("the vendor is deleted susseccfuly");

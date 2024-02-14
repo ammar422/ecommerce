@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LangRequest;
 use App\Http\Traits\ApiGeneral;
 use App\Models\Language;
-
+use Illuminate\Http\Request;
 
 class LanguagesController extends Controller
 {
@@ -68,18 +68,18 @@ class LanguagesController extends Controller
                 return $this->returnError('sorry cant save right now please try afien later');
                 // return redirect()->route('languages.show')->with(['error' => 'This Language Is Not Found']);
             } else
-            $language->update($request->all());
+                $language->update($request->all());
             return $this->returnSuccessMessage('This Language Is updated successfuly');
             // return redirect()->route('languages.show')->with(['success' => 'This Language Is edited successfuly']);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
     }
-    public function deleteLanguage($lagn_id)
+    public function deleteLanguage(Request $request)
     {
-
+       
         try {
-            $language = Language::find($lagn_id);
+             $language = Language::find($request->id);
             if (!$language) {
                 return $this->returnError('This Language Is Not Found', 5001);
             } else {

@@ -49,8 +49,9 @@
                                                 <div class="col-sm-2 col-xl-2">
                                                     <div class="bg-secondary rounded h-5 p-1">
                                                         <div class="btn-group" role="group">
-                                                            <button id="btn-delete" type="button"
-                                                                class="btn btn-danger">delete</button>
+                                                            <button id="btn-delete" vendor-id= "{{ $vendor->id }}"
+                                                                type="button" class="delete-btn btn-danger">delete
+                                                            </button>
                                                             <a href="" type="button" class="btn btn-warning">edit</a>
                                                         </div>
                                                     </div>
@@ -83,20 +84,22 @@
 @endsection
 @section('script')
     <script>
-        $(document).on('click', "#btn-delete", function(e) {
+        $(document).on('click', ".delete-btn", function(e) {
             e.preventDefault();
+            var vendorId = $(this).attr('vendor-id')
             $.ajax({
                 type: "post",
-                url: "{{ route('Vendor.delete', $vendor->id) }}",
+                url: "{{ route('Vendor.delete') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
+                    "id": vendorId,
                 },
                 success: function(data) {
                     if (data.status == true) {
                         $("#success-msg").show();
                         $("#success-msg").hide(5000);
                     }
-                    if (data.status == false){
+                    if (data.status == false) {
                         $("#erorr-msg").show()
                         $("#erorr-msg").hide(5000)
                     }

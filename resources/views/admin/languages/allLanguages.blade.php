@@ -43,8 +43,8 @@
                                             <div class="col-sm-2 col-xl-2">
                                                 <div class="bg-secondary rounded h-5 p-1">
                                                     <div class="btn-group" role="group">
-                                                        <button id="btn-delete" type="button"
-                                                            class="btn btn-danger">delete</button>
+                                                        <button id="btn-delete" Lang-id="{{ $lang->id }}" type="button"
+                                                            class="delete-btn btn-danger">delete</button>
                                                         <a href="{{ route('languages.edit', $lang->id) }}" type="button"
                                                             class="btn btn-warning">edit</a>
                                                     </div>
@@ -76,28 +76,28 @@
 @endsection
 @section('script')
     <script>
-       
-        $(document).on("click", "#btn-delete", function(e) {
+        $(document).on("click", ".delete-btn", function(e) {
             e.preventDefault();
+            let langID = $(this).attr('Lang-id');
             $.ajax({
                 type: "post",
-                url: "{{ route('languages.delete', $lang->id) }}",
-                data:{
-                    '_token' :" {{ csrf_token() }}",
+                url: "{{ route('languages.delete') }}",
+                data: {
+                    '_token': " {{ csrf_token() }}",
+                    'id': langID,
                 },
-                
+
                 success: function(data) {
-                    if(data.status ==true){
+                    if (data.status == true) {
                         $("#success-msg").show()
                         $("#success-msg").hide(4000)
                     }
-                    if(data.status ==false){
+                    if (data.status == false) {
                         $("#error-msg").show()
                         $("#error-msg").hide(6000)
                     }
                 },
-                error: function(reject) {
-                },
+                error: function(reject) {},
 
 
             });
