@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/site';
     public const ADMIN_HOME = 'admin/dashboard';
     protected $namespace = 'App\\Http\\Controllers';
+    // public const PAGINATION_COUNT=  20 ;
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

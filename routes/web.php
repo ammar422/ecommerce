@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('site.site');
 })->middleware('auth');
 
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify'=>true]); 
 
 Route::get('/site', [App\Http\Controllers\HomeController::class, 'index'])->name('site');
 

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 route::middleware('auth:admin')->group(function () {
 
+// route::resource('vendor','VendorController');
+
+
     route::get('all_vendors', 'VendorController@index')->name('show');
     route::get('new_vendor', 'VendorController@create')->name('add');
     route::post('new_vendor', 'VendorController@store')->name('store');

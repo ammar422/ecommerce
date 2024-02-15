@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Notifications\Notifiable;
 
 class Vendor extends Model
 {
-    use HasFactory;
+    use HasFactory , Notifiable;
     protected $fillable = [
         'name',
         'email',
@@ -54,13 +55,6 @@ class Vendor extends Model
     }
 
 
-
-
-
-
-
-
-
     // relations
     public function category(): BelongsTo
     {
@@ -79,7 +73,7 @@ class Vendor extends Model
     {
         return new Attribute(
 
-            set: fn ($value) => uploadImage('vendors',$value)
+            set: fn ($value) => uploadImage('vendors', $value)
         );
     }
 }

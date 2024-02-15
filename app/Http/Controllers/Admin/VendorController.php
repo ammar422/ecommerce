@@ -7,8 +7,10 @@ use App\Http\Requests\Admin\VendorRequest;
 use App\Http\Traits\ApiGeneral;
 use App\Models\MainCategorie;
 use App\Models\Vendor;
+use App\Notifications\VendorCreated;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Return_;
+use Illuminate\Support\Facades\Notification;
 
 class VendorController extends Controller
 {
@@ -18,6 +20,7 @@ class VendorController extends Controller
      */
     public function index()
     {
+        // $vendors = Vendor::with('category')->selection()->paginate(RouteServiceProvider::PAGINATION_COUNT);
         $vendors = Vendor::with('category')->selection()->paginate(PAGINATION_COUNT);
         return view('admin.vendors.allVendors', compact('vendors'));
     }
@@ -43,7 +46,7 @@ class VendorController extends Controller
         try {
             $vendor =   Vendor::create($request->validated());
             if ($vendor) {
-
+                Notification::send($vendor,new VendorCreated($vendor));
                 return $this->returnSuccessMessage("Vendor Saved Successfuly");
             } else
                 return $this->returnError("sorru cant save right now please tray agien later");
