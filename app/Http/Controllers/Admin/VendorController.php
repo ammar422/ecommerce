@@ -46,8 +46,8 @@ class VendorController extends Controller
         try {
             $vendor =   Vendor::create($request->validated());
             if ($vendor) {
-                Notification::send($vendor,new VendorCreated($vendor));
-                return $this->returnSuccessMessage("Vendor Saved Successfuly");
+                Notification::send($vendor, new VendorCreated($vendor));
+                return $this->returnSuccessMessage("Vendor Saved Successfuly", 300, null, ['data' => $vendor, 'email' => 'email sent succefualy']);
             } else
                 return $this->returnError("sorru cant save right now please tray agien later");
         } catch (\Exception $ex) {
@@ -67,17 +67,18 @@ class VendorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Vendor $vendor)
     {
-        //
+        $Categories = MainCategorie::defaultMainCategory()->select(['id', 'name'])->get();
+        return view('admin.vendors.editVendor', compact('vendor','Categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Vendor $vendor)
     {
-        //
+        return $request;
     }
 
     /**
@@ -85,11 +86,11 @@ class VendorController extends Controller
      */
     public function destroy(Request $request)
     {
-        
+
         $vendor = Vendor::find($request->id);
         if ($vendor) {
             $vendor->delete();
-            return $this->returnSuccessMessage("the vendor is deleted susseccfuly",3000,$request->id);
+            return $this->returnSuccessMessage("the vendor is deleted susseccfuly", 3000, $request->id);
         } else
             return $this->returnError("some thing went wrong plz try agien");
     }

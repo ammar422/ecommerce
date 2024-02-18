@@ -13,13 +13,14 @@ trait ApiGeneral
             'Message' => $msg ,
         ]);
     }
-    public function returnSuccessMessage( $msg,$erreNum = 3000 ,$id = null)
+    public function returnSuccessMessage( $msg,$erreNum = 3000 ,$id = null , ...$array)
     {
         return response()->json([
             'status' => true , 
             'Error Number' => $erreNum ,
             'Message' => $msg ,
-            'id'=>$id
+            'id'=>$id,
+            'data'=>$array
         ]);
     }
     public function returnData($key , $value ,$msg ,$erreNum = 4000 )

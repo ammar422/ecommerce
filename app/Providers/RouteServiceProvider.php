@@ -17,10 +17,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    // public const PAGINATION_COUNT=  20 ;
     public const HOME = '/site';
     public const ADMIN_HOME = 'admin/dashboard';
     protected $namespace = 'App\\Http\\Controllers';
-    // public const PAGINATION_COUNT=  20 ;
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -77,8 +77,8 @@ class RouteServiceProvider extends ServiceProvider
 
             // Vendors routes
             route::middleware('web')
-                ->name('Vendor.')
-                ->prefix('admin/vendor')
+                // ->name('vendor.')
+                ->prefix('admin')
                 ->namespace($this->namespace . '\\Admin')
                 ->group(base_path('routes/vendor.php'));
         });

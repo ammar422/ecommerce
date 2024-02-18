@@ -1,32 +1,31 @@
 @extends('layouts.admin.admin')
-@section('tittle', 'Edit Main Category')
+@section('tittle', 'Edit Vendor')
 @section('content')
     @include('includes.sidebars.adminSidebar')
     @include('includes.navbars.adminNavbar')
-
-    {{-- start edit category in Default lang --}}
+    {{-- start edit vendor in Default lang --}}
     <div class="container-fluid pt-5 px-5">
         <div class="row g-4">
             <div class="col-sm-20 col-xl-50">
                 <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">Edit Main Category ({{ $category->name }})</h6>
+                    <h6 class="mb-4">Edit Vendor ({{ $vendor->name }})</h6>
                     @include('includes.alerts.success')
                     @include('includes.alerts.errors')
-                    <form method="post" action="{{ route('MainCategory.update', $category->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('vendor.update', $vendor->id) }}" enctype="multipart/form-data">
+                        <input type="hidden" name="_method" value="PATCH">
                         @csrf
-                        <input type="hidden" name="id" value="{{ $category->id }}">
 
                         <div class="form-group">
                             <div class="text-center">
-                                <label class="form-label"> Current Image </label>
+                                <label class="form-label"> Current logo </label>
                                 <br>
-                                <img style="height: 500px ;width: 500px" src="{{ $category->photo }}" alt="Photo">
+                                <img style="height: 500px ;width: 500px" src="{{ $vendor->logo }}" alt="Photo">
 
                             </div>
                         </div>
                         <br>
                         <div>
-                            <label class="form-label"> Main Category Image </label>
+                            <label class="form-label"> Vendor Image </label>
                             <br>
                             <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror">
                             @error('photo')
@@ -42,11 +41,64 @@
 
 
                         <div class="mb-3">
-                            <label class="form-label"> Main Category Nmae</label>
-                            <input type="text" value="{{ $category->name }}" name="category[0][name]"
-                                class="form-control @error('category.0.name') is-invalid @enderror">
+                            <label class="form-label">vendor Nmae</label>
+                            <input type="text" value="{{ $vendor->name }}" name="name"
+                                class="form-control @error('name') is-invalid @enderror">
 
-                            @error('category.0.name')
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Vendor Main Category</label><br>
+                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror">
+                                @foreach ($Categories as $Category)
+                                    <option value="{{ $Category->id }}"
+                                        @if ($vendor->category_id == $Category->id) @selected(true) @endif>
+                                        {{ $Category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">vendor mobile</label>
+                            <input type="text" value="{{ $vendor->phone }}" name="phone"
+                                class="form-control @error('phone') is-invalid @enderror">
+
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">vendor email</label>
+                            <input type="text" value="{{ $vendor->email }}" name="email"
+                                class="form-control @error('email') is-invalid @enderror">
+
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">vendor address</label>
+                            <input type="text" value="{{ $vendor->google_map_address }}" name="address"
+                                class="form-control @error('address') is-invalid @enderror">
+
+                            @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -54,27 +106,19 @@
 
                         </div>
 
-                        <div class="mb-3" hidden>
-                            <label class="form-label"> Abbreviation</label>
-                            <input type="text" value="{{ $category->translation_lang }}" name="category[0][abbr]"
-                                value="" class="form-control @error('category.0.abbr') is-invalid @enderror">
-                            @error('category.0.abbr')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong> {{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+
+
 
 
                         <div class="mb-3">
-                            <label class="form-label">Active Main Category ?</label>
+                            <label class="form-label">Active vendor ?</label>
                             <div>
                                 <input type="radio" name="active" value=1
-                                    @if ($category->active == 'active') checked @endif
+                                    @if ($vendor->active == 'active') checked @endif
                                     class="@error('active') is-invalid @enderror">
                                 <label for="html">Active Now</label><br>
                                 <input type="radio" name="active" value=0
-                                    @if ($category->active == 'not active') checked @endif
+                                    @if ($vendor->active == 'not active') checked @endif
                                     class="@error('active') is-invalid @enderror">
                                 <label for="css">Active Later</label><br>
                                 @error('active')
@@ -94,80 +138,8 @@
             </div>
         </div>
     </div>
-    {{-- end edit category in Default lang --}}
+    {{-- end edit vendor in Default lang --}}
 
-    {{-- start edit category in non Default langs --}}
-
-    @if (isset($category->translatedCatrgories) && $category->translatedCatrgories->count())
-        <div class="container-fluid pt-5 px-5">
-            <div class="row g-4">
-                <div class="col-sm-20 col-xl-50">
-                    <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Edit Main Category ({{ $category->name }}) in translated languages</h6>
-                        @foreach ($category->translatedCatrgories as $translatedCategory)
-                            <form method="post" action="{{ route('MainCategory.update', $translatedCategory->id) }}"
-                                enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="{{ $category->id }}">
-                                @csrf
-
-                                <div class="mb-3">
-                                    <label class="form-label">{{ $translatedCategory->translation_lang }} Main Category
-                                        Nmae</label>
-                                    <input type="text" value="{{ $translatedCategory->name }}" name="category[0][name]"
-                                        class="form-control @error('category.0.name') is-invalid @enderror">
-
-                                    @error('category.0.name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                </div>
-
-                                <div class="mb-3" hidden>
-                                    <label class="form-label"> Abbreviation</label>
-                                    <input type="text" value="{{ $translatedCategory->translation_lang }}"
-                                        name="category[0][abbr]" value=""
-                                        class="form-control @error('category.0.abbr') is-invalid @enderror">
-                                    @error('category.0.abbr')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong> {{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Active Main Category ?</label>
-                                    <div>
-                                        <input type="radio" name="active" value=1
-                                            @if ($translatedCategory->active == 'active') checked @endif
-                                            class="@error('active') is-invalid @enderror">
-                                        <label for="html">Active Now</label><br>
-                                        <input type="radio" name="active" value=0
-                                            @if ($translatedCategory->active == 'not active') checked @endif
-                                            class="@error('active') is-invalid @enderror">
-                                        <label for="css">Active Later</label><br>
-                                        @error('active')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>
-                                                    {{ $message }}
-                                                </strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-
-
-    {{-- end edit category in non Default langs --}}
 
 
 @endsection

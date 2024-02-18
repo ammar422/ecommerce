@@ -52,7 +52,7 @@
                                                             <button id="btn-delete" vendor-id= "{{ $vendor->id }}"
                                                                 type="button" class="delete-btn btn-danger">delete
                                                             </button>
-                                                            <a href="" type="button" class="btn btn-warning">edit</a>
+                                                            <a href="{{ route('vendor.edit', $vendor->id) }}" type="button" class="btn btn-warning">edit</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,8 +88,8 @@
             e.preventDefault();
             var vendorId = $(this).attr('vendor-id')
             $.ajax({
-                type: "post",
-                url: "{{ route('Vendor.delete') }}",
+                type: "delete",
+                url: "{{ route('vendor.destroy', $vendor->id ) }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": vendorId,

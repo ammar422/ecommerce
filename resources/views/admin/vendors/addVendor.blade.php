@@ -142,7 +142,7 @@
 
             $.ajax({
                 type: "post",
-                url: "{{ route('Vendor.store') }}",
+                url: "{{ route('vendor.store') }}",
                 data: formData,
                 processData: false,
                 contentType: false,

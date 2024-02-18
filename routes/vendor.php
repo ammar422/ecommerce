@@ -1,19 +1,15 @@
 <?php
 
-use App\Models\Language;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 
 
 
 route::middleware('auth:admin')->group(function () {
 
-// route::resource('vendor','VendorController');
-
-
-    route::get('all_vendors', 'VendorController@index')->name('show');
-    route::get('new_vendor', 'VendorController@create')->name('add');
-    route::post('new_vendor', 'VendorController@store')->name('store');
-    route::get('edit_vendor/{id}', 'VendorController@edit')->name('edit');
-    route::post('update_vendor/{id}', 'VendorController@update')->name('update');
-    route::post('delete_vendor', 'VendorController@destroy')->name('delete');
+    route::resource('vendor', 'VendorController')
+        ->missing(function (Request $request) {
+            return Redirect::route('vendor.index');
+        });
 });

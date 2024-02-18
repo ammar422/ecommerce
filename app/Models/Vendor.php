@@ -21,7 +21,7 @@ class Vendor extends Model
         'logo'
     ];
     protected $hidden = [
-        'category_id',
+        // 'category_id',
     ];
 
 
