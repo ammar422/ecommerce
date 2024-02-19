@@ -8,7 +8,6 @@ use App\Http\Traits\ApiGeneral;
 use App\Models\MainCategorie;
 use App\Models\Vendor;
 use App\Notifications\VendorCreated;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
@@ -70,15 +69,21 @@ class VendorController extends Controller
     public function edit(Vendor $vendor)
     {
         $Categories = MainCategorie::defaultMainCategory()->select(['id', 'name'])->get();
-        return view('admin.vendors.editVendor', compact('vendor','Categories'));
+        return view('admin.vendors.editVendor', compact('vendor', 'Categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vendor $vendor)
+    public function update(VendorRequest $request, Vendor $vendor)
     {
-        return $request;
+        // return  $request;
+
+        $updated = $vendor->update($request->validated());
+        if ($updated) {
+            return redirect()->route('vendor.index')->with(['success' => 'vendor updated successfuly']);
+        }
+        return redirect()->route('vendor.index')->with(['error' => 'somthing went wrong try agien later']);
     }
 
     /**

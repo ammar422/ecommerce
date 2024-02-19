@@ -24,8 +24,8 @@ class VendorRequest extends FormRequest
         return [
             'logo'=>'required_without:id|mimes:jpg,jpeg,png',
             'name'=>'required|max:100',
-            'email'=>'email|required|unique:vendors,email',
-            'phone'=>'max:12|required|unique:vendors,phone',
+            'email'=>'email|required|unique:vendors,email,' . $this->id,
+            'phone'=>'max:50|required|unique:vendors,phone,' . $this->id,
             'google_map_address'=>'max:255|required',
             'active'=>'required',
             'category_id'=>'required|exists:main_categories,id',

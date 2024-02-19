@@ -13,6 +13,7 @@
                     @include('includes.alerts.errors')
                     <form method="post" action="{{ route('vendor.update', $vendor->id) }}" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PATCH">
+                        <input type="hidden" name="id" value="{{ $vendor->id }}">
                         @csrf
 
                         <div class="form-group">
@@ -27,8 +28,8 @@
                         <div>
                             <label class="form-label"> Vendor Image </label>
                             <br>
-                            <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror">
-                            @error('photo')
+                            <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror">
+                            @error('logo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>
                                         {{ $message }}
@@ -95,10 +96,10 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">vendor address</label>
-                            <input type="text" value="{{ $vendor->google_map_address }}" name="address"
-                                class="form-control @error('address') is-invalid @enderror">
+                            <input type="text" value="{{ $vendor->google_map_address }}" name="google_map_address"
+                                class="form-control @error('google_map_address') is-invalid @enderror">
 
-                            @error('address')
+                            @error('google_map_address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -114,11 +115,11 @@
                             <label class="form-label">Active vendor ?</label>
                             <div>
                                 <input type="radio" name="active" value=1
-                                    @if ($vendor->active == 'active') checked @endif
+                                    @if ($vendor->active == 'Active') checked @endif
                                     class="@error('active') is-invalid @enderror">
                                 <label for="html">Active Now</label><br>
                                 <input type="radio" name="active" value=0
-                                    @if ($vendor->active == 'not active') checked @endif
+                                    @if ($vendor->active == 'Not Active') checked @endif
                                     class="@error('active') is-invalid @enderror">
                                 <label for="css">Active Later</label><br>
                                 @error('active')
