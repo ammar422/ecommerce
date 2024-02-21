@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class MainCategorie extends Model
 {
-    use HasFactory;
+    use HasFactory ,Notifiable ;
     protected $fillable = [
         'name',
         'translation_lang',
@@ -16,6 +17,7 @@ class MainCategorie extends Model
         'slug',
         'photo',
         'active',
+        'emailcreator',
     ];
     protected $hidden = [];
 
@@ -55,7 +57,7 @@ class MainCategorie extends Model
         return $val == 1 ? 'active' : 'not active';
     }
 
-   
+
     // end geter area 
 
 
@@ -73,6 +75,12 @@ class MainCategorie extends Model
     {
         return
             $this->hasMany(self::class, 'translation_of');
+    }
+
+    public function vendors()
+    {
+        return
+            $this->hasMany(Vendor::class, 'category_id', 'id');
     }
 
     // end relations area 

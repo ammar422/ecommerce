@@ -21,6 +21,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">translation_lang</th>
                                     <th scope="col">slug</th>
+                                    <th scope="col">Vendors count</th>
                                     <th scope="col">photo</th>
                                     <th scope="col">Active</th>
                                     <th scope="col">opreations</th>
@@ -36,8 +37,9 @@
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->translation_lang }}</td>
                                             <td>{{ $category->slug }}</td>
+                                            <td>{{ $category->vendors->count() }}</td>
                                             {{-- <td>{{ $category->photo }}</td> --}}
-                                            <td><img style="height: 130px ;width: 100px"  src="{{$category->photo }}" alt="Photo"></td>
+                                            <td><img style="height: 50px ;width: 70px"  src="{{$category->photo }}" alt="Photo"></td>
                                             <td>{{ $category->active }}</td>
                                            
 
@@ -45,7 +47,7 @@
                                                 <div class="col-sm-2 col-xl-2">
                                                     <div class="bg-secondary rounded h-5 p-1">
                                                         <div class="btn-group" role="group">
-                                                            <a href="" type="button" class="btn btn-danger">delete</a>
+                                                            <a href="{{ route('MainCategory.delete',$category->id) }}" type="button" class="btn btn-danger">delete</a>
                                                             <a href="{{ route('MainCategory.edit',$category->id) }}" type="button" class="btn btn-warning">edit</a>
                                                         </div>
                                                     </div>

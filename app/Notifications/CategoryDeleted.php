@@ -2,25 +2,22 @@
 
 namespace App\Notifications;
 
-use App\Models\Vendor;
+use App\Models\MainCategorie;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VendorCreated extends Notification
+class CategoryDeleted extends Notification
 {
     use Queueable;
-
-
-
-    public $vendor;
+    protected $category;
     /**
-     * Create a new notification instance.  
+     * Create a new notification instance.
      */
-    public function __construct(Vendor $vendor)
+    public function __construct(MainCategorie $category)
     {
-        $this->vendor = $vendor;
+        $this->category = $category;
     }
 
     /**
@@ -30,7 +27,6 @@ class VendorCreated extends Notification
      */
     public function via(object $notifiable): array
     {
-        // return ['mail','sms','database','slack'];
         return ['mail'];
     }
 
@@ -39,26 +35,24 @@ class VendorCreated extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $subject = sprintf("Congrats... your Market account is created successfuly ", config('app.name'), "");
+        $subject = sprintf("Oops .... the main category has been deleted", config('app.name'));
         $greeting = sprintf("welcome ", $notifiable->name);
+
         return (new MailMessage)
             ->subject($subject)
             ->greeting($greeting)
-            ->salutation("Yours Faithfully")
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
+            ->salutation("ecommerce admins")
+            ->line('thw main category has been deleted.')
+            ->action('report an issue ', url('/'))
             ->line('Thank you for using our application!');
+
+        
     }
 
     /**
      * Get the array representation of the notification.
-     * 
+     *
      * @return array<string, mixed>
-     * 
-     * 
-     * 
-     * this function uesing only when return DATABASE in via function 
-     * return the column shueld be save in database  
      */
     public function toArray(object $notifiable): array
     {

@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\MainCategoriesRequest;
 use App\Models\MainCategorie;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Notifications\CategoryDeleted;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\Admin\MainCategoriesRequest;
+use App\Models\Admin;
+use Illuminate\Notifications\Notification as NotificationsNotification;
+use Illuminate\Support\Facades\Auth;
 
 class MainCategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -18,7 +24,7 @@ class MainCategoryController extends Controller
             //code...
 
             $defualtLang = get_default_language();
-            $categories = MainCategorie::where('translation_lang', $defualtLang)->selection();
+            $categories = MainCategorie::where('translation_lang', $defualtLang)->with('vendors')->selection();
             return view('admin.mainCategories.allMainCategories', compact('categories'));
         } catch (\Exception $ex) {
             return $ex->getMessage();
@@ -61,6 +67,7 @@ class MainCategoryController extends Controller
                 'slug' => $defalut_MainCategory['name'],
                 'photo' => $imagePath,
                 'active' => $request->active,
+                'emailcreator' => Auth::user()->email,
             ]);
 
             // end store Defalut Category
@@ -79,6 +86,7 @@ class MainCategoryController extends Controller
                         'slug' => $category['name'],
                         'photo' => $imagePath,
                         'active' => $request->active,
+                        'emailcreator' => Auth::user()->email,
                     ];
                     MainCategorie::insert($categories_Array);
                 }
@@ -153,8 +161,14 @@ class MainCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $category = MainCategorie::find($id);
+        $vendors = $category->vendors();
+        if (isset($vendors) && $vendors->count() > 0) {
+            return redirect()->route('MainCategory.show')->with(['error' => 'this Category can\'t be deleted']);
+        }
+        $category->delete();
+        return redirect()->route('MainCategory.show')->with(['success' => 'this Category is deleted successfuly']);
     }
 }

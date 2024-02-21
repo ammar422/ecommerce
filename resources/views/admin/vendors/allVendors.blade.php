@@ -39,7 +39,7 @@
                                             <td>{{ $vendor->email }}</td>
                                             <td>{{ $vendor->phone }}</td>
                                             {{-- <td>{{ $category->photo }}</td> --}}
-                                            <td><img style="height: 130px ;width: 100px" src="{{ $vendor->logo }}"
+                                            <td><img style="height:  50px ;width: 70px" src="{{ $vendor->logo }}"
                                                     alt="logo"></td>
                                             <td>{{ $vendor->active }}</td>
                                             <td>{{ $vendor->google_map_address }}</td>
