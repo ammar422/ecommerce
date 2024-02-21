@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
+use Illuminate\Support\Str;
 use App\Models\MainCategorie;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\CategoryDeleted;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\Admin\MainCategoriesRequest;
-use App\Models\Admin;
 use Illuminate\Notifications\Notification as NotificationsNotification;
-use Illuminate\Support\Facades\Auth;
 
 class MainCategoryController extends Controller
 {
@@ -168,6 +169,8 @@ class MainCategoryController extends Controller
         if (isset($vendors) && $vendors->count() > 0) {
             return redirect()->route('MainCategory.show')->with(['error' => 'this Category can\'t be deleted']);
         }
+        $image = Str::after($category->photo, 'ecommerce');
+        unlink(base_path() . $image);
         $category->delete();
         return redirect()->route('MainCategory.show')->with(['success' => 'this Category is deleted successfuly']);
     }

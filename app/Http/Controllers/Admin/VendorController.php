@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\VendorRequest;
-use App\Http\Traits\ApiGeneral;
-use App\Models\MainCategorie;
 use App\Models\Vendor;
-use App\Notifications\VendorCreated;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\MainCategorie;
+use App\Http\Traits\ApiGeneral;
+use App\Http\Controllers\Controller;
+use App\Notifications\VendorCreated;
+use App\Http\Requests\Admin\VendorRequest;
 use Illuminate\Support\Facades\Notification;
 
 class VendorController extends Controller
@@ -94,6 +95,8 @@ class VendorController extends Controller
 
         $vendor = Vendor::find($request->id);
         if ($vendor) {
+            $logo = Str::after($vendor->logo, 'ecommerce');
+            unlink(base_path() . $logo);
             $vendor->delete();
             return $this->returnSuccessMessage("the vendor is deleted susseccfuly", 3000, $request->id);
         } else
