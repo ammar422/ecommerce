@@ -8,4 +8,5 @@ route::middleware('auth:admin')->group(function(){
     route::get('editeCategories/{id}', 'MainCategoryController@edit')->name('edit');
     route::post('updateCategories/{id}', 'MainCategoryController@update')->name('update');
     route::get('deleteCategories/{id}', 'MainCategoryController@destroy')->name('delete');
+    route::get('changeStatus/{id}', 'MainCategoryController@cahngeStatus')->name('changeSataus');
 });

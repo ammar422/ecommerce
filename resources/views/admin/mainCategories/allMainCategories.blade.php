@@ -26,7 +26,7 @@
                                     <th scope="col">Active</th>
                                     <th scope="col">opreations</th>
 
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,16 +39,30 @@
                                             <td>{{ $category->slug }}</td>
                                             <td>{{ $category->vendors->count() }}</td>
                                             {{-- <td>{{ $category->photo }}</td> --}}
-                                            <td><img style="height: 50px ;width: 70px"  src="{{$category->photo }}" alt="Photo"></td>
+                                            <td><img style="height: 50px ;width: 70px" src="{{ $category->photo }}"
+                                                    alt="Photo"></td>
                                             <td>{{ $category->active }}</td>
-                                           
+
 
                                             <td>
                                                 <div class="col-sm-2 col-xl-2">
                                                     <div class="bg-secondary rounded h-5 p-1">
                                                         <div class="btn-group" role="group">
-                                                            <a href="{{ route('MainCategory.delete',$category->id) }}" type="button" class="btn btn-danger">delete</a>
-                                                            <a href="{{ route('MainCategory.edit',$category->id) }}" type="button" class="btn btn-warning">edit</a>
+                                                            <a href="{{ route('MainCategory.changeSataus', $category->id) }}"
+                                                                type="button" class="btn btn-warning">
+                                                                @if ($category->active == 'active')
+                                                                    <strong>Deactive</strong>
+                                                                @else
+                                                                    <strong>
+                                                                        Active
+                                                                    </strong>
+                                                                @endif
+
+                                                            </a>
+                                                            <a href="{{ route('MainCategory.edit', $category->id) }}"
+                                                                type="button" class="btn btn-success">edit</a>
+                                                            <a href="{{ route('MainCategory.delete', $category->id) }}"
+                                                                type="button" class="btn btn-danger">delete</a>
                                                         </div>
                                                     </div>
                                                 </div>

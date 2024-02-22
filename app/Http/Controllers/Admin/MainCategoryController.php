@@ -174,4 +174,19 @@ class MainCategoryController extends Controller
         $category->delete();
         return redirect()->route('MainCategory.show')->with(['success' => 'this Category is deleted successfuly']);
     }
+
+
+    public function cahngeStatus($id)
+    {
+
+        try {
+            $category = MainCategorie::find($id);
+            $status = $category->active ==  'active' ? 0 : 1;
+            $category->update(['active' => $status]);
+            return redirect()->route('MainCategory.show')->with(['success' => 'the status of category ' . $category->name . 'changed successfuly']);
+        } catch (\Exception $ex) {
+            return redirect()->route('MainCategory.show')->with(['error' => 'cant\'t change status  ! try agien']);
+            return $ex->getMessage();
+        }
+    }
 }

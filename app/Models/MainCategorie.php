@@ -57,6 +57,12 @@ class MainCategorie extends Model
         return $val == 1 ? 'active' : 'not active';
     }
 
+    // public function active() : Attribute {
+    //     return new Attribute(
+    //         get:fn($val) => $val == 1 ? 'active' : 'not active'
+            
+    //     );
+    // }
 
     // end geter area 
 
