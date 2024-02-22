@@ -102,4 +102,15 @@ class VendorController extends Controller
         } else
             return $this->returnError("some thing went wrong plz try agien");
     }
+    public function changeStatus(string $id)
+    {
+        $vendor = Vendor::find($id); 
+        if ($vendor->active =='not active' )
+            $vendor->update([
+                'active' => '1'
+            ]);
+        else
+            $vendor->update(['active' => '0']);
+        return redirect()->route('vendor.index')->with(['success' => 'the status of vendor ' . $vendor->name . ' changed successfuly']);
+    }
 }

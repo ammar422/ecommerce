@@ -49,10 +49,20 @@
                                                 <div class="col-sm-2 col-xl-2">
                                                     <div class="bg-secondary rounded h-5 p-1">
                                                         <div class="btn-group" role="group">
+                                                            <a href="{{ route('vendor.changeStatus', $vendor->id) }}"
+                                                                type="button" class="btn btn-warning">
+                                                                @if ($vendor->active == 'active')
+                                                                    Deactive
+                                                                @else
+                                                                    Active
+                                                                @endif
+
+                                                            </a>
+                                                            <a href="{{ route('vendor.edit', $vendor->id) }}" type="button"
+                                                                class="btn btn-success">edit</a>
                                                             <button id="btn-delete" vendor-id= "{{ $vendor->id }}"
                                                                 type="button" class="delete-btn btn-danger">delete
                                                             </button>
-                                                            <a href="{{ route('vendor.edit', $vendor->id) }}" type="button" class="btn btn-warning">edit</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,7 +99,7 @@
             var vendorId = $(this).attr('vendor-id')
             $.ajax({
                 type: "delete",
-                url: "{{ route('vendor.destroy', $vendor->id ) }}",
+                url: "{{ route('vendor.destroy', $vendor->id) }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": vendorId,
@@ -103,7 +113,7 @@
                         $("#erorr-msg").show()
                         $("#erorr-msg").hide(5000)
                     }
-                    $('.vendor-row'+data.id).remove()
+                    $('.vendor-row' + data.id).remove()
                 },
                 erorr: function(reject) {
 

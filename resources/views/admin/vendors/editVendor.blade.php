@@ -4,6 +4,7 @@
     @include('includes.sidebars.adminSidebar')
     @include('includes.navbars.adminNavbar')
     {{-- start edit vendor in Default lang --}}
+    {{ $vendor }}
     <div class="container-fluid pt-5 px-5">
         <div class="row g-4">
             <div class="col-sm-20 col-xl-50">
@@ -115,11 +116,11 @@
                             <label class="form-label">Active vendor ?</label>
                             <div>
                                 <input type="radio" name="active" value=1
-                                    @if ($vendor->active == 'Active') checked @endif
+                                    @if ($vendor->active == 'active') checked @endif
                                     class="@error('active') is-invalid @enderror">
                                 <label for="html">Active Now</label><br>
                                 <input type="radio" name="active" value=0
-                                    @if ($vendor->active == 'Not Active') checked @endif
+                                    @if ($vendor->active == 'not active') checked @endif
                                     class="@error('active') is-invalid @enderror">
                                 <label for="css">Active Later</label><br>
                                 @error('active')

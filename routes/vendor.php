@@ -10,6 +10,7 @@ route::middleware('auth:admin')->group(function () {
 
     route::resource('vendor', 'VendorController')
         ->missing(function () {
-            return Redirect::route('vendor.index')->with(['error'=>'soory can\'t resolve your request']);
+            return Redirect::route('vendor.index')->with(['error' => 'soory can\'t resolve your request']);
         });
+    route::get('cahngeStatus/{id}', 'VendorController@changeStatus')->name('vendor.changeStatus');
 });

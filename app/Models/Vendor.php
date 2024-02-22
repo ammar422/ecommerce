@@ -30,7 +30,7 @@ class Vendor extends Model
 
     public function getActiveAttribute($val)
     {
-        return $val == 1 ? 'Active' : 'Not Active';
+        return $val == 1 ? 'active' : 'not active';
     }
 
 

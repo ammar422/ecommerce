@@ -77,7 +77,7 @@ class RouteServiceProvider extends ServiceProvider
 
             // Vendors routes
             route::middleware('web')
-                // ->name('vendor.')
+                // ->name('vendor.') canseld global route name to fix a route resources
                 ->prefix('admin')
                 ->namespace($this->namespace . '\\Admin')
                 ->group(base_path('routes/vendor.php'));
