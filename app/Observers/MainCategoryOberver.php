@@ -41,7 +41,7 @@ class MainCategoryOberver
      */
     public function deleted(MainCategorie $mainCategorie): void
     {
-        //
+        $mainCategorie->translatedCatrgories()->delete();
     }
 
     /**

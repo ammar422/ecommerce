@@ -93,32 +93,34 @@
 
 @endsection
 @section('script')
-    <script>
-        $(document).on('click', ".delete-btn", function(e) {
-            e.preventDefault();
-            var vendorId = $(this).attr('vendor-id')
-            $.ajax({
-                type: "delete",
-                url: "{{ route('vendor.destroy', $vendor->id) }}",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "id": vendorId,
-                },
-                success: function(data) {
-                    if (data.status == true) {
-                        $("#success-msg").show();
-                        $("#success-msg").hide(5000);
-                    }
-                    if (data.status == false) {
-                        $("#erorr-msg").show()
-                        $("#erorr-msg").hide(5000)
-                    }
-                    $('.vendor-row' + data.id).remove()
-                },
-                erorr: function(reject) {
+    @isset($vendor)
+        <script>
+            $(document).on('click', ".delete-btn", function(e) {
+                e.preventDefault();
+                var vendorId = $(this).attr('vendor-id')
+                $.ajax({
+                    type: "delete",
+                    url: "{{ route('vendor.destroy', $vendor->id) }}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "id": vendorId,
+                    },
+                    success: function(data) {
+                        if (data.status == true) {
+                            $("#success-msg").show();
+                            $("#success-msg").hide(5000);
+                        }
+                        if (data.status == false) {
+                            $("#erorr-msg").show()
+                            $("#erorr-msg").hide(5000)
+                        }
+                        $('.vendor-row' + data.id).remove()
+                    },
+                    erorr: function(reject) {
 
-                },
+                    },
+                });
             });
-        });
-    </script>
+        </script>
+    @endisset
 @stop

@@ -93,7 +93,7 @@ class MainCategoryController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->route('MainCategory.add')->with(['success' => 'New Category saved successfuly']);
+            return redirect()->route('MainCategory.show')->with(['success' => 'New Category saved successfuly']);
         } catch (\Exception $e) {
             //Exception $e;
             DB::rollBack();
