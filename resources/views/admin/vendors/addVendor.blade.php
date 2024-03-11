@@ -11,9 +11,11 @@
                     <h6 class="mb-4">Add New Vendor</h6>
                     @include('includes.alerts.success')
                     @include('includes.alerts.errors')
-                   
+
                     <form id="vendorForm">
                         @csrf
+                        <input type="hidden" name="longitude" id="longitude" value="">
+                        <input type="hidden" name="latitude" id="latitude" value="">
                         <div>
                             <label class="form-label"> Vendor Logo </label>
                             <br>
@@ -37,7 +39,7 @@
                                     @foreach ($main_Categories as $Category)
                                         <option value="{{ $Category->id }}">{{ $Category->name }}</option>
                                     @endforeach
-                                  
+
 
                                 </select>
 
@@ -152,12 +154,8 @@
                     // alert(data.Message)
                     $("#success-msg").show()
                     $("#success-msg").hide(4000)
-                    
-
-
                 },
                 error: function(reject) {
-
                 },
             })
         })
@@ -381,7 +379,7 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKZAuxH9xTzD2DLY2nKSPKrgRi2_y0ejs&libraries=places&callback=initAutocomplete&language=ar&region=EG
-                                                             async defer"></script>
+                                                                 async defer"></script>
 
 
 @stop

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\MainCategorie;
+use App\Models\Vendor;
 use App\Observers\MainCategoryOberver;
+use App\Observers\VendorObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +29,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         MainCategorie::observe(MainCategoryOberver::class);
+        Vendor::observe(VendorObserver::class);
     }
 
     /**

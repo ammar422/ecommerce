@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -22,8 +22,3 @@ Route::get('/', function () {
 Auth::routes(['verify'=>true]); 
 
 Route::get('/site', [App\Http\Controllers\HomeController::class, 'index'])->name('site');
-
-
-// route::get ('test',function(){
-//    return collect( activeLang())->count()>1?'true':'false';
-// });

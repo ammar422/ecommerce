@@ -19,7 +19,9 @@ class Vendor extends Model
         'active',
         'category_id',
         'google_map_address',
-        'logo'
+        'logo',
+        'latitude',
+        'longitude',
     ];
     protected $hidden = [
         // 'category_id',
@@ -47,7 +49,9 @@ class Vendor extends Model
             'active',
             'category_id',
             'logo',
-            'google_map_address'
+            'google_map_address',
+            'latitude',
+            'longitude',
         ]);
     }
     public function scopeActive($query)

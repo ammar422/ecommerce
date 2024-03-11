@@ -44,15 +44,13 @@ class VendorController extends Controller
     public function store(VendorRequest $request)
     {
         try {
-            $vendor =   Vendor::create($request->validated());
+            $vendor = Vendor::create($request->validated());
             if ($vendor) {
-                Notification::send($vendor, new VendorCreated($vendor));
                 return $this->returnSuccessMessage("Vendor Saved Successfuly", 300, null, ['data' => $vendor, 'email' => 'email sent succefualy']);
             } else
                 return $this->returnError("sorru cant save right now please tray agien later");
         } catch (\Exception $ex) {
             return $this->returnError($ex->getMessage(), 909);
-            // return redirect()->route('Vendor.add')->with(['error' =>  'cant saved try agien <br> ' . $ex->getMessage()]);
         }
     }
 
@@ -92,20 +90,19 @@ class VendorController extends Controller
      */
     public function destroy(Request $request)
     {
-
         $vendor = Vendor::find($request->id);
         if ($vendor) {
-            $logo = Str::after($vendor->logo, 'ecommerce');
-            unlink(base_path() . $logo);
             $vendor->delete();
             return $this->returnSuccessMessage("the vendor is deleted susseccfuly", 3000, $request->id);
         } else
             return $this->returnError("some thing went wrong plz try agien");
     }
+
+
     public function changeStatus(string $id)
     {
-        $vendor = Vendor::find($id); 
-        if ($vendor->active =='not active' )
+        $vendor = Vendor::find($id);
+        if ($vendor->active == 'not active')
             $vendor->update([
                 'active' => '1'
             ]);

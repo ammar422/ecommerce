@@ -29,6 +29,8 @@ class VendorRequest extends FormRequest
             'google_map_address'=>'max:255|required',
             'active'=>'required',
             'category_id'=>'required|exists:main_categories,id',
+            'longitude'=>'required',
+            'latitude'=>'required',
         ];
     }
 }
